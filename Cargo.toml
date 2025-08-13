@@ -11,3 +11,4 @@ path = "src/main.rs"
 rand = "0.8.5"
 colored = "2.0.0"
 figlet-rs = "0.1.5"
+clap = { version = "4.0", features = ["derive"] }

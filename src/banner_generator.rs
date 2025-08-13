@@ -3,7 +3,7 @@ use super::mycelium_pattern::generate_mycelium_pattern;
 use super::constants::{FONTS, COLORS};
 use super::random_stream::RandomStream;
 
-pub fn generate_solfunmeme_banner(git_hash: &str, iteration: usize) -> String {
+pub fn generate_solfunmeme_banner(git_hash: &str, iteration: usize, growth_rate: f64) -> String {
     // Convert the Git hash to a number to use as a seed.
     let seed: u64 = git_hash.chars().map(|c| c as u64).sum();
 
@@ -25,7 +25,7 @@ pub fn generate_solfunmeme_banner(git_hash: &str, iteration: usize) -> String {
     let mycelium_height = banner_height + 4; // Add some padding
     let mycelium_width = banner_width + 4; // Add some padding
 
-    let mut mycelium_grid = generate_mycelium_pattern(&mut rng, mycelium_width, mycelium_height, iteration);
+    let mut mycelium_grid = generate_mycelium_pattern(&mut rng, mycelium_width, mycelium_height, iteration, growth_rate);
 
     // Overlay the figlet banner onto the mycelium grid
     let start_y = (mycelium_height - banner_height) / 2;
@@ -51,7 +51,7 @@ pub fn generate_solfunmeme_banner(git_hash: &str, iteration: usize) -> String {
     for y in 0..mycelium_height {
         for x in 0..mycelium_width {
             let char = mycelium_grid[y][x];
-            if char == ' ' || char == '_' || char == '-' || char == '/' || char == '\\' || char == '+' || char == '.' || char == ':' || char == ';' || char == '~' {
+            if char == ' ' || char == '_' || char == '-' || char == '/' || char == '\\'|| char == '+' || char == '.' || char == ':' || char == ';' || char == '~' {
                 final_banner.push_str(&format!("{}{}", mycelium_color_code, char));
             } else {
                 final_banner.push_str(&format!("{}{}", banner_color_code, char));
